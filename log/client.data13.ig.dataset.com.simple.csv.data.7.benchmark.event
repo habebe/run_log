@@ -14,3 +14,5 @@
 {"time":152934.0,"data":{"id":11,"rate":65.38768357592164,"Transaction":"pipeline","C":10000,"counter":140000}}
 {"time":152758.0,"data":{"id":11,"rate":65.46301994003588,"Transaction":"pipeline","C":10000,"counter":150000}}
 {"time":152661.0,"data":{"id":11,"rate":65.50461480011266,"Transaction":"pipeline","C":10000,"counter":160000}}
+{"time":151170.0,"data":{"id":11,"rate":66.15069127472383,"Transaction":"pipeline","C":10000,"counter":170000}}
+{"time":151841.0,"data":{"id":11,"rate":65.8583650002305,"Transaction":"pipeline","C":10000,"counter":180000}}
