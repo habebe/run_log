@@ -5,3 +5,12 @@
 {"time":152282.0,"data":{"id":11,"rate":65.66764292562483,"Transaction":"pipeline","C":10000,"counter":50000}}
 {"time":152732.0,"data":{"id":11,"rate":65.47416389492706,"Transaction":"pipeline","C":10000,"counter":60000}}
 {"time":150772.0,"data":{"id":11,"rate":66.32531239222136,"Transaction":"pipeline","C":10000,"counter":70000}}
+{"time":150885.0,"data":{"id":11,"rate":66.27564038837525,"Transaction":"pipeline","C":10000,"counter":80000}}
+{"time":151184.0,"data":{"id":11,"rate":66.14456556249338,"Transaction":"pipeline","C":10000,"counter":90000}}
+{"time":154011.0,"data":{"id":11,"rate":64.93042704741869,"Transaction":"pipeline","C":10000,"counter":100000}}
+{"time":153185.0,"data":{"id":11,"rate":65.28054313411887,"Transaction":"pipeline","C":10000,"counter":110000}}
+{"time":152832.0,"data":{"id":11,"rate":65.43132328308208,"Transaction":"pipeline","C":10000,"counter":120000}}
+{"time":153048.0,"data":{"id":11,"rate":65.3389786210862,"Transaction":"pipeline","C":10000,"counter":130000}}
+{"time":152934.0,"data":{"id":11,"rate":65.38768357592164,"Transaction":"pipeline","C":10000,"counter":140000}}
+{"time":152758.0,"data":{"id":11,"rate":65.46301994003588,"Transaction":"pipeline","C":10000,"counter":150000}}
+{"time":152661.0,"data":{"id":11,"rate":65.50461480011266,"Transaction":"pipeline","C":10000,"counter":160000}}
