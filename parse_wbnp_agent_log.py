@@ -53,11 +53,21 @@ class UpsertAgentLogParser(AgentLogParser):
         pass
     
     def get_start_time(self):
-        return self.start_time
+        start_time = self.start_time.split("|")[2].split(":")
+        start_time = (int(start_time[0])*60 + int(start_time[1]) + float(start_time[2])/60.0)
+        print "Start time:",start_time
+        return start_time
+
     
     def get_stop_time(self):
         start_time = self.stop_time.split("|")[2].split(":")
-        start_time = (int(start_time[0])*60 + int(start_time[1]) + float(start_time[2])/60.0)
+        A = int(self.start_time.split("|")[2].split(":")[0])
+        B = int(self.stop_time.split("|")[2].split(":")[0])
+        hour = 0
+        if B < A:
+            hour = 12
+            pass
+        start_time = ((int(start_time[0])+hour)*60 + int(start_time[1]) + float(start_time[2])/60.0)
         print "Stop time:",start_time
         return start_time
 
@@ -68,9 +78,7 @@ class UpsertAgentLogParser(AgentLogParser):
             data = message.split(",")
             if (data != None) and len(data) >= 3:
                 if self.start_time == None:
-                    start_time = log_data[0].split("|")[2].split(":")
-                    start_time = (int(start_time[0])*60 + int(start_time[1]) + float(start_time[2])/60.0)
-                    self.start_time = start_time
+                    self.start_time = log_data[0]
                     print "Start time (minutes):",self.start_time
                     pass
                 self.stop_time = log_data[0]
@@ -88,8 +96,12 @@ class UpsertAgentLogParser(AgentLogParser):
                 if self.idle_start_time:
                     stop_time = log_data[0].split("|")[2].split(":")
                     start_time = self.idle_start_time.split(":")
+                    hour = 0
+                    if int(stop_time[0]) < int(start_time[0]):
+                        hour = 12
+                        pass
                     start_time = (int(start_time[0])*60 + int(start_time[1]) + float(start_time[2])/60.0)
-                    stop_time  = (int(stop_time[0])*60 + int(stop_time[1]) + float(stop_time[2])/60.0)
+                    stop_time  = ((int(stop_time[0])+hour)*60 + int(stop_time[1]) + float(stop_time[2])/60.0)
                     diff = stop_time - start_time
                     print "Idle {0} minutes ({1})".format(diff,log_data[0].split("|")[2])
                     self.idle_time.append(diff)
