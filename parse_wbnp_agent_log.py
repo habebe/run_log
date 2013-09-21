@@ -40,8 +40,6 @@ class AgentLogParser:
 
 class UpsertAgentLogParser(AgentLogParser):
     def __init__(self):
-        self.preProcessTimeStamp = [None,None]
-        self.processTimeStamp    = [None,None]
         self.c0 = 0
         self.c1 = 0
         self.c2 = 0
@@ -50,14 +48,32 @@ class UpsertAgentLogParser(AgentLogParser):
         self.connect_map = {}
         self.idle_time = []
         self.idle_start_time = None
+        self.start_time = None
+        self.stop_time = None
         pass
     
+    def get_start_time(self):
+        return self.start_time
+    
+    def get_stop_time(self):
+        start_time = self.stop_time.split("|")[2].split(":")
+        start_time = (int(start_time[0])*60 + int(start_time[1]) + float(start_time[2])/60.0)
+        print "Stop time:",start_time
+        return start_time
+
     def parse(self,line):
         log_data = self.parseMessage(line)
         if log_data != None:
             message = log_data[1]
             data = message.split(",")
             if (data != None) and len(data) >= 3:
+                if self.start_time == None:
+                    start_time = log_data[0].split("|")[2].split(":")
+                    start_time = (int(start_time[0])*60 + int(start_time[1]) + float(start_time[2])/60.0)
+                    self.start_time = start_time
+                    print "Start time (minutes):",self.start_time
+                    pass
+                self.stop_time = log_data[0]
                 T = data[0].strip()
                 P = None
                 if not self.profile.has_key(T):
@@ -75,7 +91,7 @@ class UpsertAgentLogParser(AgentLogParser):
                     start_time = (int(start_time[0])*60 + int(start_time[1]) + float(start_time[2])/60.0)
                     stop_time  = (int(stop_time[0])*60 + int(stop_time[1]) + float(stop_time[2])/60.0)
                     diff = stop_time - start_time
-                    print "Start {0} Stop {1} Diff {2}".format(stop_time,start_time,diff)
+                    print "Idle {0} minutes ({1})".format(diff,log_data[0].split("|")[2])
                     self.idle_time.append(diff)
                     self.idle_start_time = None
                     pass
@@ -116,6 +132,7 @@ def process_idle_time(parser):
         total += i
         pass
     print "Total idle time:{0} counter:{1}".format(total,counter)
+    print "Total time {0}".format(parser.get_stop_time()-parser.get_start_time())
     pass
 
 def process_time(fileName,profile,key,sample_rate=1000,sma_period=10):
