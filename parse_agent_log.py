@@ -85,6 +85,9 @@ class UpsertAgentLogParser(AgentLogParser):
                     self.idle_start_time = log_data[0].split("|")[2]
                     pass
                 pass
+            else:
+                print log_data
+                pass
             pass
         return False
     pass
