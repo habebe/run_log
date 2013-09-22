@@ -26,8 +26,10 @@ def average(fileName):
         counter += 1
         line = f.readline()
         pass
-
-    average = total*1.0/counter
+    average = 0
+    if counter > 0:
+        average = total*1.0/counter
+        pass
     print fileName,"total : {0} counter : {1} average:{2} range({3},{4})".format(total,counter,average,min_value,max_value)
 
     print >> f_out,start,",",average
