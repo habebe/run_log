@@ -175,9 +175,9 @@ def process_time(fileName,profile,key,sample_rate=1000,sma_period=10):
             pass
         pass
     average = (overall_total*1e-6)/overall_counter
-    f_avg = file("{0}.average".format(fileName),"w")
-    print >> f_avg,"{0},{1}".format(sample_rate,average)
-    print >> f_avg,"{0},{1}".format(overall_counter,average)
+    #f_avg = file("{0}.average".format(fileName),"w")
+    #print >> f_avg,"{0},{1}".format(sample_rate,average)
+    #print >> f_avg,"{0},{1}".format(overall_counter,average)
     pass
 
 def process_rate(fileName,profile,key,sample_rate=1000,sma_period=10):
@@ -208,9 +208,9 @@ def process_rate(fileName,profile,key,sample_rate=1000,sma_period=10):
             pass
         pass
     average = (overall_counter*1e9)/(overall_total)
-    f_avg = file("{0}.average".format(fileName),"w")
-    print >> f_avg,"{0},{1}".format(sample_rate,average)
-    print >> f_avg,"{0},{1}".format(overall_counter,average)
+    #f_avg = file("{0}.average".format(fileName),"w")
+    #print >> f_avg,"{0},{1}".format(sample_rate,average)
+    #print >> f_avg,"{0},{1}".format(overall_counter,average)
 
     pass
 
