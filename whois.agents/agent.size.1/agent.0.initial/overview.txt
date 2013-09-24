@@ -1,6 +1,6 @@
-Start time (minutes): +I|tid:1|08:50:26
-Idle 0.05 minutes (08:50:26)
-Total idle time:0.05 counter:1
-Stop time: 533.333333333
-Start time: 530.433333333
-Total time 2.9
+Start time (minutes): +I|tid:1|10:06:21
+Idle 0.0500000000001 minutes (10:06:21)
+Total idle time:0.0500000000001 counter:1
+Stop time: 618.883333333
+Start time: 606.35
+Total time 12.5333333333
