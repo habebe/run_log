@@ -248,21 +248,16 @@ def process_connectivity(fileName,profile,key):
 
 process_idle_time(parser)
 
-process_connectivity("web",parser.profile,"C")
+process_connectivity("whois",parser.profile,"C")
 
 process_time("task.preprocess.time",parser.profile,"A")
 process_time("task.process.time",parser.profile,"B")
 process_time("subtask.preprocess.time",parser.profile,"D")
-process_time("subtask.connectivity.time",parser.profile,"C")
-process_time("subtask.process.query.time",parser.profile,"E")
 process_time("subtask.process.time",parser.profile,"F")
-
 
 process_rate("task.preprocess.rate",parser.profile,"A")
 process_rate("task.process.rate",parser.profile,"B")
 process_rate("subtask.preprocess.rate",parser.profile,"D")
-process_rate("subtask.connectivity.rate",parser.profile,"C")
-process_rate("subtask.process.query.rate",parser.profile,"E")
 process_rate("subtask.process.rate",parser.profile,"F")
 
 
