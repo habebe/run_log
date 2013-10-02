@@ -1,0 +1,30 @@
+Start time (minutes): +I|tid:1|01:01:00
+Idle 0.916666666667 minutes (01:01:00)
+Idle 0.05 minutes (01:04:24)
+Idle 0.0666666666667 minutes (02:56:03)
+Idle 0.05 minutes (02:59:58)
+Idle 0.8 minutes (03:08:54)
+Idle 0.05 minutes (03:28:48)
+Idle 0.05 minutes (03:39:33)
+Idle 0.05 minutes (03:40:33)
+Idle 1.38333333333 minutes (03:47:34)
+Idle 1.08333333333 minutes (03:48:41)
+Idle 0.933333333333 minutes (03:49:40)
+Idle 0.166666666667 minutes (03:49:51)
+Idle 0.466666666667 minutes (03:50:57)
+Idle 0.15 minutes (03:51:08)
+Idle 0.466666666667 minutes (03:51:38)
+Idle 0.05 minutes (03:51:44)
+Idle 0.266666666667 minutes (03:52:01)
+Idle 0.316666666667 minutes (03:52:21)
+Idle 0.1 minutes (03:52:28)
+Idle 0.05 minutes (03:52:33)
+Idle 0.266666666667 minutes (03:52:50)
+Idle 1.51666666667 minutes (04:00:31)
+Idle 0.316666666667 minutes (04:01:00)
+Idle 0.516666666667 minutes (04:01:36)
+Idle 0.266666666667 minutes (04:01:56)
+Total idle time:10.35 counter:25
+Stop time: 241.95
+Start time: 61.0
+Total time 180.95
