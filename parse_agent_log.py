@@ -40,8 +40,6 @@ class AgentLogParser:
 
 class UpsertAgentLogParser(AgentLogParser):
     def __init__(self):
-        self.preProcessTimeStamp = [None,None]
-        self.processTimeStamp    = [None,None]
         self.c0 = 0
         self.c1 = 0
         self.c2 = 0
@@ -50,14 +48,40 @@ class UpsertAgentLogParser(AgentLogParser):
         self.connect_map = {}
         self.idle_time = []
         self.idle_start_time = None
+        self.start_time = None
+        self.stop_time = None
         pass
     
+    def get_start_time(self):
+        start_time = self.start_time.split("|")[2].split(":")
+        start_time = (int(start_time[0])*60 + int(start_time[1]) + float(start_time[2])/60.0)
+        print "Start time:",start_time
+        return start_time
+
+    
+    def get_stop_time(self):
+        start_time = self.stop_time.split("|")[2].split(":")
+        A = int(self.start_time.split("|")[2].split(":")[0])
+        B = int(self.stop_time.split("|")[2].split(":")[0])
+        hour = 0
+        if B < A:
+            hour = 12
+            pass
+        start_time = ((int(start_time[0])+hour)*60 + int(start_time[1]) + float(start_time[2])/60.0)
+        print "Stop time:",start_time
+        return start_time
+
     def parse(self,line):
         log_data = self.parseMessage(line)
         if log_data != None:
             message = log_data[1]
             data = message.split(",")
             if (data != None) and len(data) >= 3:
+                if self.start_time == None:
+                    self.start_time = log_data[0]
+                    print "Start time (minutes):",self.start_time
+                    pass
+                self.stop_time = log_data[0]
                 T = data[0].strip()
                 P = None
                 if not self.profile.has_key(T):
@@ -72,10 +96,14 @@ class UpsertAgentLogParser(AgentLogParser):
                 if self.idle_start_time:
                     stop_time = log_data[0].split("|")[2].split(":")
                     start_time = self.idle_start_time.split(":")
+                    hour = 0
+                    if int(stop_time[0]) < int(start_time[0]):
+                        hour = 12
+                        pass
                     start_time = (int(start_time[0])*60 + int(start_time[1]) + float(start_time[2])/60.0)
-                    stop_time  = (int(stop_time[0])*60 + int(stop_time[1]) + float(stop_time[2])/60.0)
+                    stop_time  = ((int(stop_time[0])+hour)*60 + int(stop_time[1]) + float(stop_time[2])/60.0)
                     diff = stop_time - start_time
-                    print "Start {0} Stop {1} Diff {2}".format(stop_time,start_time,diff)
+                    print "Idle {0} minutes ({1})".format(diff,log_data[0].split("|")[2])
                     self.idle_time.append(diff)
                     self.idle_start_time = None
                     pass
@@ -84,9 +112,6 @@ class UpsertAgentLogParser(AgentLogParser):
                 if self.idle_start_time == None:
                     self.idle_start_time = log_data[0].split("|")[2]
                     pass
-                pass
-            else:
-                print log_data
                 pass
             pass
         return False
@@ -119,6 +144,7 @@ def process_idle_time(parser):
         total += i
         pass
     print "Total idle time:{0} counter:{1}".format(total,counter)
+    print "Total time {0}".format(parser.get_stop_time()-parser.get_start_time())
     pass
 
 def process_time(fileName,profile,key,sample_rate=1000,sma_period=10):
@@ -149,9 +175,9 @@ def process_time(fileName,profile,key,sample_rate=1000,sma_period=10):
             pass
         pass
     average = (overall_total*1e-6)/overall_counter
-    f_avg = file("{0}.average".format(fileName),"w")
-    print >> f_avg,"{0},{1}".format(sample_rate,average)
-    print >> f_avg,"{0},{1}".format(overall_counter,average)
+    #f_avg = file("{0}.average".format(fileName),"w")
+    #print >> f_avg,"{0},{1}".format(sample_rate,average)
+    #print >> f_avg,"{0},{1}".format(overall_counter,average)
     pass
 
 def process_rate(fileName,profile,key,sample_rate=1000,sma_period=10):
@@ -182,9 +208,9 @@ def process_rate(fileName,profile,key,sample_rate=1000,sma_period=10):
             pass
         pass
     average = (overall_counter*1e9)/(overall_total)
-    f_avg = file("{0}.average".format(fileName),"w")
-    print >> f_avg,"{0},{1}".format(sample_rate,average)
-    print >> f_avg,"{0},{1}".format(overall_counter,average)
+    #f_avg = file("{0}.average".format(fileName),"w")
+    #print >> f_avg,"{0},{1}".format(sample_rate,average)
+    #print >> f_avg,"{0},{1}".format(overall_counter,average)
 
     pass
 
@@ -218,21 +244,15 @@ def process_connectivity(fileName,profile,key):
 
 process_idle_time(parser)
 
-process_connectivity("web",parser.profile,"C")
-
 process_time("task.preprocess.time",parser.profile,"A")
 process_time("task.process.time",parser.profile,"B")
 process_time("subtask.preprocess.time",parser.profile,"D")
-process_time("subtask.connectivity.time",parser.profile,"C")
-process_time("subtask.process.query.time",parser.profile,"E")
 process_time("subtask.process.time",parser.profile,"F")
 
 
 process_rate("task.preprocess.rate",parser.profile,"A")
 process_rate("task.process.rate",parser.profile,"B")
 process_rate("subtask.preprocess.rate",parser.profile,"D")
-process_rate("subtask.connectivity.rate",parser.profile,"C")
-process_rate("subtask.process.query.rate",parser.profile,"E")
 process_rate("subtask.process.rate",parser.profile,"F")
 
 
