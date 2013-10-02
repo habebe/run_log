@@ -3,8 +3,8 @@ import os
 def run(log_name,id):
     print log_name,id
     cwd = os.getcwd()
-    os.system("mkdir -p /data/ig.tools/run_log/wbnp.whois.agents/agent.size.15/agent.{0}".format(id))
-    os.chdir("/data/ig.tools/run_log/wbnp.whois.agents/agent.size.15/agent.{0}".format(id))
+    os.system("mkdir -p /data/ig.tools/run_log/wbnp.whois.agents/agent.size.15/{0}.{1}".format(log_name,id))
+    os.chdir("/data/ig.tools/run_log/wbnp.whois.agents/agent.size.15/{0}.{1}".format(log_name,id))
     os.system("python ../../../parse_agent_log.py /data14/ig.log/{0}.{1} > overview.txt".format(log_name,id))
     os.system("python ../../../generate_average.py")
     os.chdir(cwd)
