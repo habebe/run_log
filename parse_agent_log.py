@@ -90,7 +90,12 @@ class UpsertAgentLogParser(AgentLogParser):
                 P = self.profile[T]
                 D = []
                 for i in xrange(1,len(data)):
-                    D.append(float(data[i]))
+                    v = 0
+                    try:
+                        v = float(data[i])
+                    except:
+                        pass
+                    D.append(v)
                     pass
                 P.append(D)
                 if self.idle_start_time:
